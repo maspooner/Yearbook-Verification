@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:YearbookVerify"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Button Name="actionButton" DockPanel.Dock="Bottom" Click="actionButton_Click">Verify</Button>
+        <ScrollViewer DockPanel.Dock="Top">
+			<TextBox Name="inputBox" AllowDrop="False" TextWrapping="Wrap" AcceptsReturn="True"/>
+		</ScrollViewer>
+	</DockPanel>
 </Window>
