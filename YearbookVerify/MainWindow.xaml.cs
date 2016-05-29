@@ -16,16 +16,14 @@ using System.Windows.Input;
 namespace YearbookVerify {
 	public partial class MainWindow : System.Windows.Window {
 		//members
-		private bool input;
 		private Spelling spellCheck;
 		private List<Name> names;
 		//constructors
 		public MainWindow() {
 			//TODO handle exceptions
 			InitializeComponent();
-			input = true;
 			spellCheck = new Spelling();
-			names = CompileMatchedList(); //TODO
+			names = CompileMatchedList(); //TODO load from file
 			WordDictionary wd = new WordDictionary();
 			wd.DictionaryFile = "registeredNames.dic";
 			spellCheck.Dictionary = wd;
@@ -106,10 +104,10 @@ namespace YearbookVerify {
 			string[] lines = text.Split(delim);
 			int errors = 0;
 			int noExist = 0;
-			string markedLines = "";
-			int lineNum = 1;
-			foreach(string s in lines) {
-				string editLine = s.Trim();
+			string[] regLines = new string[lines.Length];
+			string[] markedLines = new string[lines.Length];
+			for(int i = 0; i < lines.Length; i++) {
+				string editLine = lines[i].Trim();
 				if (editLine.Length > 0) {
 					string[] words = editLine.Split(' ');
 					if(words.Length == 2) {
@@ -117,80 +115,96 @@ namespace YearbookVerify {
 						words[1] = CapFirst(words[1]);
 						bool sFirst = spellCheck.TestWord(words[0]);
 						bool sLast = spellCheck.TestWord(words[1]);
-						if(sFirst && sLast) {
+						regLines[i] = words[0] + " " + words[1];
+                        if (sFirst && sLast) {
 							Name n = names.Find(name => name.First.Equals(words[0]) && name.Last.Equals(words[1]));
 							if(n == null) {
-								markedLines += MakeError(words[0] + " " + words[1]) + " This name combination does not exist." + delim;
+								markedLines[i] = "***This name combination not registered.***";
 								noExist++;
 							}
 							else {
-								markedLines += words[0] + " " + words[1] + delim;
+								markedLines[i] = "All good.";
                             }
 						}
 						else {
-							if (sFirst) {
-								markedLines += words[0] + " ";
-							}
-							else {
-								markedLines += MakeError(words[0]) + " " + FindSomeSuggestions(words[0]) + " ";
+							if(!sFirst) {
+								markedLines[i] = MakeError(words[0]) + FindSomeSuggestions(words[0]);
 								errors++;
 							}
-							if (sLast) {
-								markedLines += words[1] + delim;
-                            }
-							else {
-								markedLines += MakeError(words[1]) + " " + FindSomeSuggestions(words[1]) + delim;
+							if(!sLast) {
+								if (markedLines[i].Length > 0)
+									markedLines[i] += "\t";
+								markedLines[i] += MakeError(words[1]) + FindSomeSuggestions(words[1]);
 								errors++;
 							}
 						}
 					}
 					else {
-						return new SpellingResult("Error on line " + lineNum + ". Name must be two words.", -1);
+						return new SpellingResult("Error on line " + (i+1) + ". Name must be two words.");
 					}
 				}
-				lineNum++;
+				else {
+					regLines[i] = "";
+					markedLines[i] = "All good.";
+				}
 			}
-			markedLines = markedLines.Substring(0, markedLines.Length - 1);
-			return new SpellingResult(markedLines, errors);
+			return new SpellingResult(regLines, markedLines, errors);
 		}
 		//wpf
 		private void actionButton_Click(object sender, RoutedEventArgs e) {
-			if (input) {
-				if (inputBox.Text.Length > 0) {
-					//verify
-					SpellingResult res = CheckSpelling(inputBox.Text, '\n');
-					if (res.UserError) {
-						MessageBox.Show(res.UserMessage);
-						return;
-					}
-					else {
-						inputBox.Text = res.MarkedLines;
-					}
+			if (inputBox.Text.Length > 0) {
+				const char delim = '\n';
+				//verify
+				SpellingResult res = CheckSpelling(inputBox.Text, delim);
+				if (res.UserError) {
+					MessageBox.Show(res.UserMessage);
+					return;
+				}
+				else {
+					inputBox.Text = string.Join(delim.ToString(), res.RegLines);
+					outputBox.Text = string.Join(delim.ToString(), res.MarkedLines);
 				}
 			}
-			else {
-				//return
+		}
+		private void reloadButton_Click(object sender, RoutedEventArgs e) {
+			names = CompileMatchedList();
+			File.WriteAllText("registeredNames.dic", Properties.Resources.dicBase + string.Join(Environment.NewLine, FindUnique()));
+		}
+		private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e) {
+			ScrollViewer v = sender as ScrollViewer;
+			if(sender == view1) {
+				view2.ScrollToVerticalOffset(view1.VerticalOffset);
 			}
-			actionButton.Content = input ? "Return" : "Verify";
-			input = !input;
-			inputBox.IsEnabled = !inputBox.IsEnabled;
+			else {
+				view1.ScrollToVerticalOffset(view2.VerticalOffset);
+			}
 		}
 	}
 	class SpellingResult {
 		//members
 		private int errors;
-		private string markedLines;
+		private string[] regLines;
+		private string[] markedLines;
+		private string userMessage;
 		//constructors
-		internal SpellingResult(string markedLines, int errors) {
+		internal SpellingResult(string[] regLines, string[] markedLines, int errors) {
 			this.errors = errors;
+			this.regLines = regLines;
 			this.markedLines = markedLines;
+			userMessage = null;
+		}
+		internal SpellingResult(string userMessage) {
+			this.userMessage = userMessage;
+			errors = -1;
+			markedLines = null;
 		}
 		//properties
-		internal string MarkedLines { get { return markedLines; } }
+		internal string[] RegLines { get { return regLines; } }
+		internal string[] MarkedLines { get { return markedLines; } }
 		internal bool NoErrors { get { return errors == 0; } }
 		internal int Errors { get { return errors; } }
 		internal bool UserError { get { return errors == -1; } }
-		internal string UserMessage { get { return markedLines; } }
+		internal string UserMessage { get { return userMessage; } }
 	}
 	class Name {
 		//members

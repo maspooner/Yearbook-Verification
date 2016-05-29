@@ -6,11 +6,23 @@
         xmlns:local="clr-namespace:YearbookVerify"
         mc:Ignorable="d"
         Title="Yearbook Spelling" Height="350" Width="525">
-    <DockPanel>
-        <Button Name="actionButton" DockPanel.Dock="Bottom" Click="actionButton_Click">Verify</Button>
-        <RichTextBox DockPanel.Dock="Top" AllowDrop="False"/>
-        <ScrollViewer DockPanel.Dock="Top">
-			<TextBox Name="inputBox" AllowDrop="False" TextWrapping="Wrap" AcceptsReturn="True"/>
-		</ScrollViewer>
-	</DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+			<RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <UniformGrid Columns="2" Rows="1" Grid.Row="0">
+            <ScrollViewer Name="view1" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
+                <TextBox Name="inputBox" AcceptsReturn="True" FontSize="12"/>
+            </ScrollViewer>
+            <ScrollViewer Name="view2" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
+                <TextBlock Background="LightGray" Name="outputBox" FontSize="12" AllowDrop="False" TextWrapping="WrapWithOverflow"/>
+            </ScrollViewer>
+        </UniformGrid>
+        <UniformGrid Columns="2" Rows="1" Grid.Row="1">
+            <Button Name="actionButton" Click="actionButton_Click">Verify</Button>
+            <Button Name="reloadButton" Click="reloadButton_Click">Reload Name Database</Button>
+        </UniformGrid>
+    </Grid>
+    
 </Window>
