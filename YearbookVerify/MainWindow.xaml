@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YearbookVerify"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Yearbook Spelling" Height="350" Width="525">
     <DockPanel>
         <Button Name="actionButton" DockPanel.Dock="Bottom" Click="actionButton_Click">Verify</Button>
+        <RichTextBox DockPanel.Dock="Top" AllowDrop="False"/>
         <ScrollViewer DockPanel.Dock="Top">
 			<TextBox Name="inputBox" AllowDrop="False" TextWrapping="Wrap" AcceptsReturn="True"/>
 		</ScrollViewer>
