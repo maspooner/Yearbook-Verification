@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YearbookVerify"
         mc:Ignorable="d"
-        Title="Yearbook Spelling" Height="350" Width="525">
+        Title="Yearbook Spelling" Height="550" Width="800" MinHeight="250" MinWidth="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="9*"/>
@@ -13,10 +13,10 @@
         </Grid.RowDefinitions>
         <UniformGrid Columns="2" Rows="1" Grid.Row="0">
             <ScrollViewer Name="view1" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
-                <TextBox Name="inputBox" AcceptsReturn="True" FontSize="12"/>
+                <TextBox Name="inputBox" AcceptsReturn="True" FontSize="16"/>
             </ScrollViewer>
             <ScrollViewer Name="view2" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
-                <TextBlock Background="LightGray" Name="outputBox" FontSize="12" AllowDrop="False" TextWrapping="WrapWithOverflow"/>
+                <TextBlock Background="LightGray" Name="outputBox" FontSize="16"/>
             </ScrollViewer>
         </UniformGrid>
         <UniformGrid Columns="2" Rows="1" Grid.Row="1">

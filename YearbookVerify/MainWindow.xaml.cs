@@ -3,62 +3,119 @@ using NetSpell.SpellChecker;
 using NetSpell.SpellChecker.Dictionary;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace YearbookVerify {
-	public partial class MainWindow : System.Windows.Window {
+	public partial class MainWindow : System.Windows.Window, IDisposable {
 		//members
 		private Spelling spellCheck;
 		private List<Name> names;
 		//constructors
 		public MainWindow() {
-			//TODO handle exceptions
 			InitializeComponent();
+			Icon = GetIcon(Properties.Resources.icon);
 			spellCheck = new Spelling();
-			names = CompileMatchedList(); //TODO load from file
+			names = LoadNames();
 			WordDictionary wd = new WordDictionary();
 			wd.DictionaryFile = "registeredNames.dic";
 			spellCheck.Dictionary = wd;
 			spellCheck.SuggestionMode = Spelling.SuggestionEnum.PhoneticNearMiss;
-			foreach (string str in spellCheck.Suggestions)
-				Console.WriteLine(str);
-			File.WriteAllText("registeredNames.dic", Properties.Resources.dicBase + string.Join(Environment.NewLine, FindUnique()));
 		}
 		//methods
-		private List<Name> CompileMatchedList() {
-			List<Name> compNames = new List<Name>();
-			Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-			app.Visible = false;
-			Workbook wb = app.Workbooks.Open(@"F:\Documents\Visual Studio 2015\Projects\YearbookVerify\YearbookVerify\bin\Debug\input.xlsx");
-			Worksheet ws = wb.Worksheets[1];
-			string first, last;
-			int i = 3;
-			bool done;
-			do {
-				first = (string)ws.Cells[i, 2].Value;
-				last = (string)ws.Cells[i, 3].Value;
-				done = first == null || last == null || first.Length == 0 || last.Length == 0;
-				if (!done) {
-					compNames.Add(new Name(first, last));
-					Console.WriteLine(first + " " + last);
-					i++;
+		private BitmapSource GetIcon(Bitmap b) {
+			BitmapImage bitmapImage;
+            using (MemoryStream memory = new MemoryStream()) {
+				b.Save(memory, ImageFormat.Bmp);
+				memory.Position = 0;
+				bitmapImage = new BitmapImage();
+				bitmapImage.BeginInit();
+				bitmapImage.StreamSource = memory;
+				bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+				bitmapImage.EndInit();
+			}
+			return bitmapImage;
+		}
+		private void ReloadDataStructures() {
+			names = CompileNames();
+			SaveNames();
+			WriteDictionary();
+			spellCheck.Dictionary.Dispose();
+			WordDictionary wd = new WordDictionary();
+			wd.DictionaryFile = "registeredNames.dic";
+			spellCheck.Dictionary = wd;
+		}
+		private void SaveNames() {
+			try {
+				File.WriteAllText(Environment.CurrentDirectory + "/matchedNames.nms", string.Join("\n", names));
+			}
+			catch (Exception e) {
+				MessageBox.Show("An error occured attempting to save valid names to file.\n\nError:\t" + e.Message, "Error Writing Names File", MessageBoxButton.OK);
+			}
+		}
+		private List<Name> LoadNames() {
+			try {
+				List<Name> names = new List<Name>();
+				string[] ls = File.ReadAllLines(Environment.CurrentDirectory + "/matchedNames.nms");
+				foreach(string l in ls) {
+					Console.WriteLine(l);
+					string[] words = l.Split(' ');
+					names.Add(new Name(words[0], words[1]));
 				}
-            }
-			while (!done);
-			wb.Close(false);
-			app.Quit();
-			ReleaseInterop(ws);
-			ReleaseInterop(wb);
-			ReleaseInterop(app);
-			return compNames;
+				return names;
+			}
+			catch (Exception e) {
+				MessageBox.Show("An error occured attempting to load valid names from file.\n\nError:\t" + e.Message, "Error Reading Names File", MessageBoxButton.OK);
+			}
+			return new List<Name>();
+		}
+		private void WriteDictionary() {
+			try {
+				File.WriteAllText(Environment.CurrentDirectory + "/registeredNames.dic", Properties.Resources.dicBase + string.Join(Environment.NewLine, FindUnique()));
+			}
+			catch (Exception e) {
+				MessageBox.Show("An error occured trying to convert the input spreadsheet into a dictionary file.\n\nError:\t" + e.Message, "Error Writing Dictionary File", MessageBoxButton.OK);
+			}
+		}
+		private List<Name> CompileNames() {
+			try {
+				List<Name> compNames = new List<Name>();
+				Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+				app.Visible = false;
+				Workbook wb = app.Workbooks.Open(Environment.CurrentDirectory + "/input.xlsx");
+				Worksheet ws = wb.Worksheets[1];
+				string first, last;
+				int i = 3;
+				bool done;
+				do {
+					first = (string)ws.Cells[i, 2].Value;
+					last = (string)ws.Cells[i, 3].Value;
+					done = first == null || last == null || first.Length == 0 || last.Length == 0;
+					if (!done) {
+						compNames.Add(new Name(first, last));
+						Console.WriteLine(first + " " + last);
+						i++;
+					}
+				}
+				while (!done);
+				wb.Close(false);
+				app.Quit();
+				ReleaseInterop(ws);
+				ReleaseInterop(wb);
+				ReleaseInterop(app);
+				return compNames;
+			}
+			catch(Exception e) {
+				MessageBox.Show("An error occured when trying to read the input spreadsheet. Make sure the file \'input.xlsx\' is located in the directory" +
+					"with this program and that it is formatted properly. The first first name should be in cell B3 and the first last name should be in cell"+
+					" C3.\n\nError:\t" + e.Message, "Error reading spreadsheet", MessageBoxButton.OK);
+			}
+			return new List<Name>();
 		}
 		private List<string> FindUnique() {
 			List<string> unique = new List<string>();
@@ -79,7 +136,7 @@ namespace YearbookVerify {
 			}
 			catch (Exception ex) {
 				obj = null;
-				MessageBox.Show("Unable to release the Object " + ex.ToString());
+				MessageBox.Show("An error has occured: " + ex.Message);
 			}
 			finally {
 				GC.Collect();
@@ -102,8 +159,6 @@ namespace YearbookVerify {
 		}
 		private SpellingResult CheckSpelling(string text, char delim) {
 			string[] lines = text.Split(delim);
-			int errors = 0;
-			int noExist = 0;
 			string[] regLines = new string[lines.Length];
 			string[] markedLines = new string[lines.Length];
 			for(int i = 0; i < lines.Length; i++) {
@@ -119,23 +174,21 @@ namespace YearbookVerify {
                         if (sFirst && sLast) {
 							Name n = names.Find(name => name.First.Equals(words[0]) && name.Last.Equals(words[1]));
 							if(n == null) {
-								markedLines[i] = "***This name combination not registered.***";
-								noExist++;
+								markedLines[i] = MakeError("This name combination not registered.");
 							}
 							else {
 								markedLines[i] = "All good.";
                             }
 						}
 						else {
+							markedLines[i] = "";
 							if(!sFirst) {
 								markedLines[i] = MakeError(words[0]) + FindSomeSuggestions(words[0]);
-								errors++;
 							}
 							if(!sLast) {
 								if (markedLines[i].Length > 0)
-									markedLines[i] += "\t";
+									markedLines[i] += " and ";
 								markedLines[i] += MakeError(words[1]) + FindSomeSuggestions(words[1]);
-								errors++;
 							}
 						}
 					}
@@ -148,31 +201,32 @@ namespace YearbookVerify {
 					markedLines[i] = "All good.";
 				}
 			}
-			return new SpellingResult(regLines, markedLines, errors);
+			return new SpellingResult(regLines, markedLines);
+		}
+		public void Dispose() {
+			spellCheck.Dispose();
 		}
 		//wpf
 		private void actionButton_Click(object sender, RoutedEventArgs e) {
 			if (inputBox.Text.Length > 0) {
-				const char delim = '\n';
 				//verify
-				SpellingResult res = CheckSpelling(inputBox.Text, delim);
+				SpellingResult res = CheckSpelling(inputBox.Text, '\n');
 				if (res.UserError) {
 					MessageBox.Show(res.UserMessage);
 					return;
 				}
 				else {
-					inputBox.Text = string.Join(delim.ToString(), res.RegLines);
-					outputBox.Text = string.Join(delim.ToString(), res.MarkedLines);
+					inputBox.Text = string.Join("\n", res.RegLines);
+					outputBox.Text = string.Join("\n", res.MarkedLines);
 				}
 			}
 		}
 		private void reloadButton_Click(object sender, RoutedEventArgs e) {
-			names = CompileMatchedList();
-			File.WriteAllText("registeredNames.dic", Properties.Resources.dicBase + string.Join(Environment.NewLine, FindUnique()));
+			ReloadDataStructures();
 		}
 		private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e) {
 			ScrollViewer v = sender as ScrollViewer;
-			if(sender == view1) {
+			if (sender == view1) {
 				view2.ScrollToVerticalOffset(view1.VerticalOffset);
 			}
 			else {
@@ -182,28 +236,24 @@ namespace YearbookVerify {
 	}
 	class SpellingResult {
 		//members
-		private int errors;
 		private string[] regLines;
 		private string[] markedLines;
 		private string userMessage;
 		//constructors
-		internal SpellingResult(string[] regLines, string[] markedLines, int errors) {
-			this.errors = errors;
+		internal SpellingResult(string[] regLines, string[] markedLines) {
 			this.regLines = regLines;
 			this.markedLines = markedLines;
 			userMessage = null;
 		}
 		internal SpellingResult(string userMessage) {
 			this.userMessage = userMessage;
-			errors = -1;
+			regLines = null;
 			markedLines = null;
 		}
 		//properties
 		internal string[] RegLines { get { return regLines; } }
 		internal string[] MarkedLines { get { return markedLines; } }
-		internal bool NoErrors { get { return errors == 0; } }
-		internal int Errors { get { return errors; } }
-		internal bool UserError { get { return errors == -1; } }
+		internal bool UserError { get { return markedLines == null; } }
 		internal string UserMessage { get { return userMessage; } }
 	}
 	class Name {
@@ -218,5 +268,8 @@ namespace YearbookVerify {
 		//properties
 		internal string First { get { return first; } }
 		internal string Last { get { return last; } }
+		public override string ToString() {
+			return first + " " + last;
+		}
 	}
 }
