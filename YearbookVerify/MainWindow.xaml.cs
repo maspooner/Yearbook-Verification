@@ -151,18 +151,24 @@ namespace YearbookVerify {
 			string sugg = string.Join(" or ", suggs);
 			return sugg.Length > 0 ? " Did you mean: " + sugg + "?" : "";
 		}
-		private string MakeError(string s) {
-			return "***" + s + "***";
-		}
 		private string CapFirst(string s) {
 			return char.ToUpperInvariant(s[0]) + s.Substring(1).ToLowerInvariant();
 		}
+		private string Substring(string s, int i, int j) {
+			return s.Substring(i, j - i);
+		}
 		private SpellingResult CheckSpelling(string text, char delim) {
 			string[] lines = text.Split(delim);
-			string[] regLines = new string[lines.Length];
-			string[] markedLines = new string[lines.Length];
-			for(int i = 0; i < lines.Length; i++) {
-				string editLine = lines[i].Trim();
+			List<string> regLines = new List<string>();
+			string markedLines = "";
+			int lineNum = 0;
+			int i = 1;
+			foreach(string l in lines) {
+				string editLine = l.Trim();
+				while (editLine.Contains("  ")) {
+					int iSpace = editLine.IndexOf("  ");
+					editLine = Substring(editLine, 0, iSpace) + Substring(editLine, iSpace + 1, editLine.Length);
+				}
 				if (editLine.Length > 0) {
 					string[] words = editLine.Split(' ');
 					if(words.Length == 2) {
@@ -170,38 +176,30 @@ namespace YearbookVerify {
 						words[1] = CapFirst(words[1]);
 						bool sFirst = spellCheck.TestWord(words[0]);
 						bool sLast = spellCheck.TestWord(words[1]);
-						regLines[i] = words[0] + " " + words[1];
-                        if (sFirst && sLast) {
+						regLines.Add(words[0] + " " + words[1]);
+						lineNum++;
+						if (sFirst && sLast) {
 							Name n = names.Find(name => name.First.Equals(words[0]) && name.Last.Equals(words[1]));
 							if(n == null) {
-								markedLines[i] = MakeError("This name combination not registered.");
+								markedLines += "Entry " + lineNum + ": \"" + regLines[regLines.Count - 1] + "\" name is not registered." + "\n";
 							}
-							else {
-								markedLines[i] = "All good.";
-                            }
 						}
 						else {
-							markedLines[i] = "";
 							if(!sFirst) {
-								markedLines[i] = MakeError(words[0]) + FindSomeSuggestions(words[0]);
+								markedLines += "Entry " + lineNum +": \"" + words[0] + "\" is incorrectly spelled. " + FindSomeSuggestions(words[0]) + "\n";
 							}
 							if(!sLast) {
-								if (markedLines[i].Length > 0)
-									markedLines[i] += " and ";
-								markedLines[i] += MakeError(words[1]) + FindSomeSuggestions(words[1]);
+								markedLines += "Entry " + lineNum + ": \"" + words[1] + "\" is incorrectly spelled. " + FindSomeSuggestions(words[1]) + "\n";
 							}
 						}
 					}
 					else {
-						return new SpellingResult("Error on line " + (i+1) + ". Name must be two words.");
+						return new SpellingResult("Error on entry " + i + ". Name must be two words.");
 					}
 				}
-				else {
-					regLines[i] = "";
-					markedLines[i] = "All good.";
-				}
+				i++;
 			}
-			return new SpellingResult(regLines, markedLines);
+			return new SpellingResult(regLines.ToArray(), markedLines);
 		}
 		public void Dispose() {
 			spellCheck.Dispose();
@@ -210,14 +208,15 @@ namespace YearbookVerify {
 		private void actionButton_Click(object sender, RoutedEventArgs e) {
 			if (inputBox.Text.Length > 0) {
 				//verify
-				SpellingResult res = CheckSpelling(inputBox.Text, '\n');
+				SpellingResult res = CheckSpelling(inputBox.Text, ',');
 				if (res.UserError) {
-					MessageBox.Show(res.UserMessage);
+					MessageBox.Show(this, res.UserMessage, "User Error");
 					return;
 				}
 				else {
-					inputBox.Text = string.Join("\n", res.RegLines);
-					outputBox.Text = string.Join("\n", res.MarkedLines);
+					inputBox.Text = string.Join(", ", res.RegLines);
+					
+					outputBox.Text = res.MarkedLines.Length == 0 ? "All good." : string.Join("\n", res.MarkedLines);
 				}
 			}
 		}
@@ -237,10 +236,10 @@ namespace YearbookVerify {
 	class SpellingResult {
 		//members
 		private string[] regLines;
-		private string[] markedLines;
+		private string markedLines;
 		private string userMessage;
 		//constructors
-		internal SpellingResult(string[] regLines, string[] markedLines) {
+		internal SpellingResult(string[] regLines, string markedLines) {
 			this.regLines = regLines;
 			this.markedLines = markedLines;
 			userMessage = null;
@@ -252,7 +251,7 @@ namespace YearbookVerify {
 		}
 		//properties
 		internal string[] RegLines { get { return regLines; } }
-		internal string[] MarkedLines { get { return markedLines; } }
+		internal string MarkedLines { get { return markedLines; } }
 		internal bool UserError { get { return markedLines == null; } }
 		internal string UserMessage { get { return userMessage; } }
 	}

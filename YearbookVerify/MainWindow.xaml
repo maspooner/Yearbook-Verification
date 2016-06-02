@@ -5,23 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YearbookVerify"
         mc:Ignorable="d"
-        Title="Yearbook Spelling" Height="550" Width="800" MinHeight="250" MinWidth="400">
+        Title="Yearbook Spelling" Height="550" Width="800" MinHeight="300" MinWidth="450">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-			<RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="15*"/>
+			<RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <UniformGrid Columns="2" Rows="1" Grid.Row="0">
-            <ScrollViewer Name="view1" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
-                <TextBox Name="inputBox" AcceptsReturn="True" FontSize="16"/>
-            </ScrollViewer>
-            <ScrollViewer Name="view2" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Visible">
-                <TextBlock Background="LightGray" Name="outputBox" FontSize="16"/>
-            </ScrollViewer>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Name Input (separated by a comma)</Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Spelling Errors</Label>
         </UniformGrid>
         <UniformGrid Columns="2" Rows="1" Grid.Row="1">
-            <Button Name="actionButton" Click="actionButton_Click">Verify</Button>
-            <Button Name="reloadButton" Click="reloadButton_Click">Reload Name Database</Button>
+            <ScrollViewer Name="view1" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Disabled">
+                <TextBox Name="inputBox" TextWrapping="Wrap" AcceptsReturn="False" FontSize="16"/>
+            </ScrollViewer>
+            <ScrollViewer Name="view2" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Disabled">
+                <TextBlock TextWrapping="Wrap" Background="LightGray" Name="outputBox" FontSize="16"/>
+            </ScrollViewer>
+        </UniformGrid>
+        <UniformGrid Columns="2" Rows="1" Grid.Row="2">
+            <Button Name="actionButton" Click="actionButton_Click" FontSize="18">Verify</Button>
+            <Button Name="reloadButton" Click="reloadButton_Click" FontSize="18">Reload Name Database</Button>
+        </UniformGrid>
+        <UniformGrid Columns="2" Rows="1" Grid.Row="3">
+            <Label VerticalAlignment="Center" HorizontalAlignment="Left">Version 1.0.0</Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Right">Made by Matt Spooner 2016</Label>
         </UniformGrid>
     </Grid>
     
