@@ -157,26 +157,26 @@ namespace YearbookVerify {
 		private string Substring(string s, int i, int j) {
 			return s.Substring(i, j - i);
 		}
-		private SpellingResult CheckSpelling(string text, char delim) {
-			string[] lines = text.Split(delim);
+		private SpellingResult CheckSpelling(string text, char lineDelim, char wordDelim) {
+			string[] lines = text.Split(lineDelim);
 			List<string> regLines = new List<string>();
 			string markedLines = "";
 			int lineNum = 0;
 			int i = 1;
 			foreach(string l in lines) {
 				string editLine = l.Trim();
-				while (editLine.Contains("  ")) {
-					int iSpace = editLine.IndexOf("  ");
+				while (editLine.Contains(" ")) {
+					int iSpace = editLine.IndexOf(" ");
 					editLine = Substring(editLine, 0, iSpace) + Substring(editLine, iSpace + 1, editLine.Length);
 				}
 				if (editLine.Length > 0) {
-					string[] words = editLine.Split(' ');
+					string[] words = editLine.Split(wordDelim);
 					if(words.Length == 2) {
 						words[0] = CapFirst(words[0]);
 						words[1] = CapFirst(words[1]);
 						bool sFirst = spellCheck.TestWord(words[0]);
 						bool sLast = spellCheck.TestWord(words[1]);
-						regLines.Add(words[0] + " " + words[1]);
+						regLines.Add(words[0] + wordDelim + words[1]);
 						lineNum++;
 						if (sFirst && sLast) {
 							Name n = names.Find(name => name.First.Equals(words[0]) && name.Last.Equals(words[1]));
@@ -206,17 +206,19 @@ namespace YearbookVerify {
 		}
 		//wpf
 		private void actionButton_Click(object sender, RoutedEventArgs e) {
+			char lineDelim = '\n', wordDelim = ',';
 			if (inputBox.Text.Length > 0) {
 				//verify
-				SpellingResult res = CheckSpelling(inputBox.Text, ',');
+				SpellingResult res = CheckSpelling(inputBox.Text, lineDelim, wordDelim);
 				if (res.UserError) {
 					MessageBox.Show(this, res.UserMessage, "User Error");
 					return;
 				}
 				else {
-					inputBox.Text = string.Join(", ", res.RegLines);
+					inputBox.Text = string.Join(lineDelim.ToString(), res.RegLines);
 					
-					outputBox.Text = res.MarkedLines.Length == 0 ? "All good." : string.Join("\n", res.MarkedLines);
+					outputBox.Text = res.MarkedLines.Length == 0 ? "All good." : 
+						string.Join(lineDelim.ToString(), res.MarkedLines);
 				}
 			}
 		}

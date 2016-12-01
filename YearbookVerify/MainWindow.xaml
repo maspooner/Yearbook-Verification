@@ -14,12 +14,33 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <UniformGrid Columns="2" Rows="1" Grid.Row="0">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Name Input (separated by a comma)</Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">
+                <Label.Content>
+                    Name Input (scroll over for help)
+                </Label.Content>
+                <Label.ToolTip>
+                    <StackPanel>
+                        <Label FontWeight="Bold">How to enter names</Label>
+                        <Label>
+                            <TextBlock>
+								Enter names by listing the first name, a comma, the last name, then a new line. See below: <LineBreak/>
+								[FirstName1] , [LastName1] <LineBreak/>
+								[FirstName2] , [LastName2] <LineBreak/>
+								...
+							</TextBlock>
+                        </Label>
+                        <Label>
+                            <TextBlock>The best way to do this is to make a 2 column spreadsheet in Excel of first and last names pairs<LineBreak/>
+					and save the file as a .csv. Then open the file in Notepad, and copy and paste into this program.</TextBlock></Label>
+                    </StackPanel>
+                    
+				</Label.ToolTip>
+			</Label>
             <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold">Spelling Errors</Label>
         </UniformGrid>
         <UniformGrid Columns="2" Rows="1" Grid.Row="1">
             <ScrollViewer Name="view1" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Disabled">
-                <TextBox Name="inputBox" TextWrapping="Wrap" AcceptsReturn="False" FontSize="16"/>
+                <TextBox Name="inputBox" TextWrapping="Wrap" FontSize="16" AcceptsReturn="True"/>
             </ScrollViewer>
             <ScrollViewer Name="view2" ScrollChanged="ScrollViewer_ScrollChanged" HorizontalScrollBarVisibility="Disabled">
                 <TextBlock TextWrapping="Wrap" Background="LightGray" Name="outputBox" FontSize="16"/>
@@ -30,7 +51,7 @@
             <Button Name="reloadButton" Click="reloadButton_Click" FontSize="18">Reload Name Database</Button>
         </UniformGrid>
         <UniformGrid Columns="2" Rows="1" Grid.Row="3">
-            <Label VerticalAlignment="Center" HorizontalAlignment="Left">Version 1.0.0</Label>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Left">Version 1.0.1</Label>
             <Label VerticalAlignment="Center" HorizontalAlignment="Right">Made by Matt Spooner 2016</Label>
         </UniformGrid>
     </Grid>
