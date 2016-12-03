@@ -1,0 +1,1305 @@
+[Copyright]
+
+[Try]
+esianrtolcdugmphbyfvkwESIANRTOLCDUGMPHBYFVKW
+
+[Replace]
+a ei
+ei a
+a ey
+ey a
+ai ie
+ie ai
+are air
+are ear
+are eir
+air are
+air ere
+ere air
+ere ear
+ere eir
+ear are
+ear air
+ear ere
+eir are
+eir ere
+ch te
+te ch
+ch ti
+ti ch
+ch tu
+tu ch
+ch s
+s ch
+ch k
+k ch
+f ph
+ph f
+gh f
+f gh
+i igh
+igh i
+i uy
+uy i
+i ee
+ee i
+j di
+di j
+j gg
+gg j
+j ge
+ge j
+s ti
+ti s
+s ci
+ci s
+k cc
+cc k
+k qu
+qu k
+kw qu
+o eau
+eau o
+o ew
+ew o
+oo ew
+ew oo
+ew ui
+ui ew
+oo ui
+ui oo
+ew u
+u ew
+oo u
+u oo
+u oe
+oe u
+u ieu
+ieu u
+ue ew
+ew ue
+uff ough
+oo ieu
+ieu oo
+ier ear
+ear ier
+ear air
+air ear
+w qu
+qu w
+z ss
+ss z
+shun tion
+shun sion
+shun cion
+t tt
+
+[Prefix]
+A Y 1
+A   0     re         .
+I Y 1
+I   0     in         .
+U Y 1
+U   0     un         .
+C Y 1
+C   0     de          .
+E Y 1
+E   0     dis         .
+F Y 1
+F   0     con         .
+K Y 1
+K   0     pro         .
+
+[Suffix]
+V N 2
+V   e     ive        e
+V   0     ive        [^e]
+N Y 3
+N   e     ion        e
+N   y     ication    y
+N   0     en         [^ey]
+X Y 3
+X   e     ions       e
+X   y     ications   y
+X   0     ens        [^ey]
+H N 2
+H   y     ieth       y
+H   0     th         [^y]
+Y Y 1
+Y   0     ly         .
+G Y 2
+G   e     ing        e
+G   0     ing        [^e]
+J Y 2
+J   e     ings       e
+J   0     ings       [^e]
+D Y 4
+D   0     d          e
+D   y     ied        [^aeiou]y
+D   0     ed         [^ey]
+D   0     ed         [aeiou]y
+T N 4
+T   0     st         e
+T   y     iest       [^aeiou]y
+T   0     est        [aeiou]y
+T   0     est        [^ey]
+R Y 4
+R   0     r          e
+R   y     ier        [^aeiou]y
+R   0     er         [aeiou]y
+R   0     er         [^ey]
+Z Y 4
+Z   0     rs         e
+Z   y     iers       [^aeiou]y
+Z   0     ers        [aeiou]y
+Z   0     ers        [^ey]
+S Y 4
+S   y     ies        [^aeiou]y
+S   0     s          [aeiou]y
+S   0     es         [sxzh]
+S   0     s          [^sxzhy]
+P Y 3
+P   y     iness      [^aeiou]y
+P   0     ness       [aeiou]y
+P   0     ness       [^y]
+M Y 1
+M   0     's         .
+B Y 3
+B   0     able       [^aeiou]
+B   0     able       ee
+B   e     able       [^aeiou]e
+L Y 1
+L   0     ment       .
+
+[Phonetic]
+AH(AEIOUY)-^         *H
+AR(AEIOUY)-^         *R
+A(HR)^               *
+A^                   *
+AH(AEIOUY)-          H
+AR(AEIOUY)-          R
+A(HR)                _
+BB-                  _
+B                    B
+CQ-                  _
+CIA                  X
+CH                   X
+C(EIY)-              S
+CK                   K
+COUGH^               KF
+CC<                  C
+C                    K
+DG(EIY)              K
+DD-                  _
+D                    T
+É<                   E
+EH(AEIOUY)-^         *H
+ER(AEIOUY)-^         *R
+E(HR)^               *
+ENOUGH^$             *NF
+E^                   *
+EH(AEIOUY)-          H
+ER(AEIOUY)-          R
+E(HR)                _
+FF-                  _
+F                    F
+GN^                  N
+GN$                  N
+GNS$                 NS
+GNED$                N
+GH(AEIOUY)-          K
+GH                   _
+GG9                  K
+G                    K
+H                    H
+IH(AEIOUY)-^         *H
+IR(AEIOUY)-^         *R
+I(HR)^               *
+I^                   *
+ING6                 N
+IH(AEIOUY)-          H
+IR(AEIOUY)-          R
+I(HR)                _
+J                    K
+KN^                  N
+KK-                  _
+K                    K
+LAUGH^               LF
+LL-                  _
+L                    L
+MB$                  M
+MM                   M
+M                    M
+NN-                  _
+N                    N
+OH(AEIOUY)-^         *H
+OR(AEIOUY)-^         *R
+O(HR)^               *
+O^                   *
+OH(AEIOUY)-          H
+OR(AEIOUY)-          R
+O(HR)                _
+PH                   F
+PN^                  N
+PP-                  _
+P                    P
+Q                    K
+RH^                  R
+ROUGH^               RF
+RR-                  _
+R                    R
+SCH(EOU)-            SK
+SC(IEY)-             S
+SH                   X
+SI(AO)-              X
+SS-                  _
+S                    S
+TI(AO)-              X
+TH                   @
+TCH--                _
+TOUGH^               TF
+TT-                  _
+T                    T
+UH(AEIOUY)-^         *H
+UR(AEIOUY)-^         *R
+U(HR)^               *
+U^                   *
+UH(AEIOUY)-          H
+UR(AEIOUY)-          R
+U(HR)                _
+V^                   W
+V                    F
+WR^                  R
+WH^                  W
+W(AEIOU)-            W
+X^                   S
+X                    KS
+Y(AEIOU)-            Y
+ZZ-                  _
+Z                    S
+
+[Words]
+Aaron
+Abbey
+Abby
+Abigail
+Abraham
+Ackerly
+Adam
+Adams
+Addyson
+Adelaide
+Adriana
+Agathe
+Aidan
+Akatyszewski
+Albert
+Aldana-Proulx
+Alec
+Alex
+Alexander
+Alexandra
+Alexandru
+Alexis
+Alexzandrea
+Allison
+Allyson
+Alyssa
+Amanda
+Amaya
+Amelia
+Amira
+Amit
+Amy
+Anastasia
+Anderson
+Andrea
+Andrew
+Andy
+Angelee
+Anghel
+Anna
+Anneser
+Anthony
+Archambault
+Arianna
+Ariella
+Arjun
+Arnold
+Ash
+Ashley
+Ashlyn
+AshLynn
+Atkinson
+Atlas
+Audra
+Audrey
+Aulbach
+Austin
+Autumn
+Ava
+Ava Maria
+Avery
+Babcock
+Bachus-Purdin
+Bair
+Baker
+Balfour
+Balsamo
+Banks
+Barassi
+Bardani
+Barry
+Basque
+Bates
+Batson
+Bavis
+Bazemore
+Beaulieu
+Belanger
+Belden
+Bell
+Ben
+Bencks
+Bender
+Benjamin
+Bennett
+Benson
+Bent
+Bentall
+Bergeron
+Bergerson
+Bergstrom
+Bernadette
+Berry
+Berthiaume
+Bertolami
+Bertone
+Berube
+Bethany
+Bhogal
+Bill
+Bird
+Blaisdell
+Blake
+Blanchette
+Blasi
+Bloniasz
+Bodholdt
+Boggis
+Bonnette
+Borkowski
+Boudreau
+Bourgeois
+Bourque
+Brackett
+Bradley
+Bradshaw
+Brandon
+Brendan
+Brendhan
+Brennen
+Brian
+Brianna
+Brickner
+Bridges
+Broadhurst
+Brock
+Brodie
+Bronfine
+Brooke
+Brown
+Brunkhardt
+Bruseo
+Bruzik
+Bryce
+Buckley
+Bucknam
+Bullock
+Burbridge
+Burgher
+Burns
+Burtt
+Byrne
+Byron
+Cacci
+Cadario
+Cadman
+Caitlin
+Caleb
+Cambria
+Camden
+Cameron
+Camille
+Campbell
+Canfield
+Cantella
+Caplan
+Cardin
+Cardoza
+Carignan
+Carley
+Carlos
+Carly
+Caroline
+Carolyn
+Carr
+Casciotti
+Casey
+Cason
+Cassandra
+Cassidy
+Castriotta
+Caswell
+Catalanotti
+Catherine
+Caway
+Celeste
+Celina
+Cenci
+Cerato
+Chace
+Chad
+Chandler
+Charlie
+Charlotte
+Chase
+Chelsea
+Cheng
+Cherkassky
+Chevrier
+Chilakapati
+Choate
+Chretien
+Christian
+Christina
+Christopher
+Chrystal
+Cian
+Claire
+Clark
+Cleghorn
+Clement
+Clifton
+Close
+Coady
+Cochran
+Cockerham
+Cody
+Colburn
+Cole
+Colena
+Colin
+Collard
+Collins
+Colton
+Comeau
+Conaway
+Connelly
+Connor
+Connors
+Considine
+Cook
+Cooper
+Corban
+Cordelia
+Corsetti
+Courtney
+Coutu
+Cox
+Craig
+Cramton
+Cricket
+Crocker
+Crooks
+Crosby
+Crupi
+Cunanan
+Curley
+Curry
+Curtis
+Dahlstrom
+Daigle
+Dale
+Dana
+Danaisawasdi
+Daniel
+Daniella
+Dante
+Dapolito
+Daria
+Darius
+Daskalos
+Dattis
+David
+Davidson
+Davis
+Day
+Dean
+Decoteau
+DeJoie
+Delaney
+Delayni
+DeLong
+DelPapa
+DeMaggio
+DeMaio
+DeMayo
+Demello IV
+Denham
+Derek
+Desruisseau
+Devan
+Devin
+Dhruv
+Dias
+Dillon
+Dinbergs
+Dinman
+DiPrizio
+DiRenzo
+DiStefano
+Dolfini
+Domenic
+Dominic
+Donald
+Donovan
+Dougherty
+Douglas
+Dowling
+Dreyer
+Driscoll
+Dudley
+Dunn
+Duval
+Dvareckas
+Dwyer
+Dylan
+Eastman
+Eben
+Eisenhauer
+Elaine
+Eleanor
+Elfadil
+Eli
+Elise
+Eliza
+Elizabeth
+Elkin
+Ella
+Elvins
+Emelia
+Emily
+Emma
+Emmie
+Entrekin
+Eric
+Ericson
+Erin
+Errica
+Eryn
+Eshed
+Esperanca
+Etchells
+Ethan
+Evan
+Fabbio
+Faith
+Fallon
+Farmer
+Farquhar
+Farrow
+Farwell
+Felicity
+Felix
+Fellows
+Fendt
+Ferdinand
+Fergus
+Ferguson
+Ferro
+Fetter
+Figueroa
+Finch
+Fiore
+Fitzgerald
+Fitzpatrick
+Flanagan
+Fokas
+Fothergill
+Fox
+Franklin
+Franzini
+Friedman
+Frugard
+Fry
+Futrell
+Gabriel
+Gabrielle
+Gagnon
+Garrett
+Gaudreau
+Gavin
+Genevieve
+George
+Georgia
+Gesel
+Giaconia
+Gialluca
+Gillespie Jr.
+Gillian
+Gillis
+Gingras
+Gionet
+Gliser
+Glover
+Goclowski
+Goldberg
+Golden
+Gomez Blanco
+Goodman
+Goodwin
+Gordon
+Goussios
+Goyette
+Grace
+Graham
+Grant
+Gratton
+Graves
+Green
+Gregory
+Grimes
+Gryniewicz
+Guay
+Guthrie
+Gwen
+Gyles
+Hadley
+Hailey
+Hale
+Haley
+Hall
+Hallerman
+Hallett
+Hamblett
+Hamel
+Hannah
+Harley
+Harris
+Harrison
+Hattamer
+Haulk
+Hay
+Hayden
+Hayes
+Haynes
+Haytayan
+Hazelton
+Heather
+Heidel
+Heidi
+Helin
+Hemenway
+Henri
+Hill
+Hillard
+Hinchliffe
+Hinkle
+Hoenninger
+Hoey
+Hoffpauir
+Hogan
+Holland
+Holly
+Holmes
+Holroyd
+Hopkins
+Houle
+Houvener
+Howard
+Hsu
+Hubert
+Hudzik
+Hunter
+Huppe
+Hurlburt
+Hutchinson
+Hyatt
+Ian
+Ide
+Ingraham
+Iodice
+Isaac
+Isabel
+Isabella
+Isabelle
+Izel
+Jack
+Jackson
+Jacob
+Jacobs
+Jacobson
+Jacqueline
+Jacquelyn
+James
+Jamison
+Janessa
+Jared
+Jarman
+Jarod
+Jason
+Jasraj
+Javier
+Jeffrey
+Jeffreys
+Jenna
+Jennifer
+Jeremiah
+Jeremy
+Jesse
+Jessica
+Jillian
+Jimeno
+Joanna
+Jocelyn
+Jodi
+Joel
+Johanna
+John
+John Paul
+Johnson
+Jonathan
+Jonathon
+Jones
+Jordan
+Joseph
+Josephine
+Joshua
+Julia
+Justin
+Kailah
+Kaitlin
+Kaito
+Kaleigh
+Kalhori
+Kali
+Kara
+Karaline
+Karen
+Katarina
+Katelyn
+Kateri
+Katherine
+Kathleen
+Kathryn
+Katie
+Katryn
+Kauffman
+Kaylee
+Kazantsev
+Keefe
+Keehan
+Keely
+Kelley
+Kelly
+Kelsey
+Kempton
+Kennedy
+Kenneth
+Kepnes
+Keri
+Kevin
+Khatri
+Khushali
+Kia
+Kieran
+Kierra
+Kimberly
+King
+Kipp
+Klausner
+Kobe
+Koch
+Kopser
+Koran
+Korsak
+Kotarski
+Kotelly
+Kovalchek
+Kramarczyk
+Kristianna
+Kristina
+Kristopher
+Krivis
+Kroeger
+Kroposki
+Krystal
+Kubishta
+Kuchta
+Kyle
+Kylie
+Kyra
+Kyrias
+Labak
+LaFontaine
+LaFrance
+Landolt
+Lapierre
+Lau
+Laura
+Lauren
+Lavery
+Lavoie
+Lawner
+Lawrence
+Lazich
+LeBlanc
+Lee
+Leila
+Lemay
+Lemos
+Leone
+Lesley
+Leslie
+Levi
+Lewis
+Liam
+Lillian
+Lily
+Lindamood
+Lindsey
+Lisa
+Livezey
+Loftus
+Logan
+Lones
+Lopez
+Lorenzo
+Lorman
+Lou
+Lucas
+Lucien
+Luke
+Lukovits
+Lyles
+Lysik
+MacDonald
+MacDonough
+MacDormand
+MacEachen
+MacFarlane
+Mack
+Mackenzie
+MacKenzie
+MacLeod
+MacMillan
+Madeleine
+Madeline
+Madelyn
+Madison
+Madoc
+Madsen
+Madylin
+Maegan
+Magnolia
+Maguire
+Mahoney
+Mailloux
+Maloney
+Mansfield
+Mansinon
+Mantler
+Mara
+Maren
+Margaret
+Maria
+Marian
+Marie
+Marilyn
+Mario
+Mark
+Marquis
+Marshall
+Martin
+Martin-Albert
+Martinos
+Mary
+Matthew
+Mauch
+Maura
+Max
+Maxwell
+Maya
+Mayo
+Mayou
+Mazza
+Mazzola
+McCann
+McCarter
+McEvoy
+McGettigan
+McIlwrath
+McKenna
+McLaughlin
+McNabb
+McNamara
+McQuilkin
+Meagher
+Megan
+Meghan
+Meinhardt
+Mello
+Menard
+Mercier
+Meredith
+Messina
+Metcalf
+Mia
+Michael
+Michaela
+Michaud
+Michele
+Michelene
+Miglani
+Miles
+Miller
+Miranda
+Mitchell
+Modelski
+Moir
+Molly
+Moloney
+Monbleau
+Monroe
+Moore
+Moores
+Moraros
+Morgan
+Morrow
+Moscatelli
+Moskun
+Moura
+Moyer
+Moynihan
+Muckstadt
+Mulligan
+Murray
+Myah
+Myles
+Nagle
+Naomi
+Napior
+Natalie
+Natasha
+Nate
+Nathan
+Nathaniel
+Neisner
+Nelson
+Newsham
+Newton
+Nicholas
+Nichole
+Nicolas
+Nicole
+Niemi
+Nikolas
+Nithipalan
+Noah
+Nora
+Nordstrom
+Norris
+Northcott
+Norton
+Nova
+O'Brien
+Occhialini
+O'Connor
+Oetjens
+Ogren
+O'Hara
+Okada
+Okindo
+Oliver
+Olivia
+Olsen
+Olson
+Orner
+Osborn
+Ouellette
+Ouziel
+Owen
+Pack
+Paige
+Paisley
+Paityn
+Palmeri
+Paquin
+Paradie
+Pare
+Parker
+Partridge
+Passamonte
+Patel
+Patrick
+Pattelena
+Paul
+Pearson
+Pellerin
+Penasack
+Pender
+Penta
+Pepin
+Perreault
+Peter
+Peterson
+Peyton
+Philbrook
+Philpot
+Pickard
+Pigott
+Plummer
+Poisson
+Poitras
+Pomeranz
+Ponders
+Popham
+Porter
+Poulin
+Pouliot
+Powers
+Price
+Provost
+Pugh
+Pustizzi
+Putney
+Quarles
+Quereshy
+Quinn
+Quinten
+Rachael
+Rachel
+Radford
+Radosavljevic
+Ramalho
+Ramkumar
+Randlett
+Rasmussen
+Ratsamin
+Reagan
+Rebecca
+Reis
+Renee
+Revathi
+Reynolds
+Rezzarday
+Rhiannon
+Richard
+Richardson
+Riley
+Riseman
+Rishal
+Riva
+Roach
+Robbins
+Robert
+Robinson
+Rodonis Ainger
+Rodriguez
+Rogers
+Romanow
+Ronald
+Ronan
+Ross
+Roy
+Rusnak
+Russell
+Rutledge
+Ruvido
+Ryan
+Ryugo
+Sacks
+Sadie
+Salisbury
+Salvatore
+Sam
+Samantha
+Samec
+Samuel
+Sanborn
+Sander
+Sandoval
+Santoski
+Sara
+Sarah
+Sargent
+Sartell
+Sattler
+Savanna
+Savannah
+Scales
+Scalia
+Schofield
+Schultz
+Schulz
+Schunemann
+Schwarm
+Scott
+Scrima
+Sean
+Sedlacek
+Selene
+Senthil
+Senthilkumar
+Serena
+Shanley
+Shannon
+Shawn
+Shayna
+Shea
+Shebak
+Shepard
+Sheppard
+Sherwood
+Shoults
+Shutt
+Sidhu
+Sidney
+Siena
+Sierra
+Silcox
+Silvestri
+Simco
+Simmerman
+Simon
+Simonds
+Simpson
+Simren
+Sinclair
+Siobhan
+Skylar
+Slater
+Smith
+Snyder
+Sofia
+Solinas
+Sophia
+Souza
+Speir
+Spooner
+Sreekar
+St. Pierre
+Stacey
+Stam
+Stapelfeld
+Stearns
+Steckler
+Stephanie
+Stephen
+Sterling
+Steven
+Stickney
+Stockwell
+Stoll
+Stone
+Straka
+Sulin
+Surette
+Sutton
+Svirk
+Swabowicz
+Sweeney
+Swope
+Sydney
+Szczeszynski
+Tamerah
+Tamposi
+Tasha
+Tatiana
+Tatyana
+Taylor
+Taylor Ann
+Teagan
+Terenzoni
+Teresa
+Thermitus
+Thomas
+Thyng
+Tiana
+Tiara
+Tieman
+Tighe
+Tim
+Timothy
+Tiner
+Toni
+Torgersen
+Torrey
+Toupin
+Townsend
+Trai
+Traver
+Trevor
+Tristan
+Tucker
+Turner
+Tyler
+Tyrrell
+Ugur
+Ulrich
+Vachon
+Vahe
+Valente
+Valente II
+Valentine
+VanCoughnett
+Vanessa
+Veillette
+Veino
+Velez
+Veronique
+Vertullo
+Victoria
+Vienna
+Vincent
+Violet
+Vivek
+Vivian
+Vollmer
+Walch
+Walega
+Walker
+Ward
+Weaver
+Webb
+Wertz
+Whalen
+Wheeler
+Whipp
+White
+Whiting
+Whittemore
+Will
+Willett
+William
+Williams
+Williamson
+Wilton
+Wimmer
+Wink
+Withington
+Wojcik
+Wood
+Wright
+Yang
+Yardley
+Young
+Zachariah
+Zachary
+Zaki
+Zawadowskiy
+Zielinski
+Zimmerman
+Zoe
+Zorn
