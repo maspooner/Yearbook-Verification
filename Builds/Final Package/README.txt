@@ -1,14 +1,14 @@
 *********************************
 Yearbook Spell Checker
-Version 1.0.1
+Version 1.1.0
 Made by Matt Spooner
-Last Modified: 6/1/2016
+Last Modified: 12/3/2016
 Questions or modification requests? Send an email to spoonerm12@gmail.com
 *********************************
 
 To function, this program requires
 	- Microsoft Excel
-	- An excel spreadsheet titled "input.xlsx" present in the program's directory
+	- An excel spreadsheet titled "pairings.xlsx" present in the program's directory
 
 How to use:
 ---------------------------

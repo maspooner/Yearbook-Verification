@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace YearbookVerify {
 	public partial class MainWindow : System.Windows.Window, IDisposable {
+		//TODO same last name, works for one but not the other
 		//members
 		private SpellCheckCore spellCore;
 		//constructors

@@ -124,7 +124,7 @@ namespace YearbookVerify {
 				spellCheck.Suggest(word);
 				//add a max of 2 suggestions/word
 				for (int i = 0; i < spellCheck.Suggestions.Count && i < MAX_SUGGESTIONS; i++) {
-					suggs.Add(spellCheck.Suggestions[i] as string);
+					suggs.Add(Name.FixupCapitals(spellCheck.Suggestions[i] as string));
 				}
 				
 			}
@@ -145,6 +145,12 @@ namespace YearbookVerify {
 			//lines that mark errors in spelling and name pairing
 			string[] markedLines = new string[lines.Length];
 			for (int i = 0; i < lines.Length; i++) {
+				if (lines[i].Length == 0) {
+					//skip blank lines
+					userLines[i] = "";
+					markedLines[i] = "";
+					continue;
+				}
 				//parse a name from the line
 				Name parsed = Name.Parse(lines[i]);
 				if (parsed != null) {
@@ -172,14 +178,14 @@ namespace YearbookVerify {
 										+ parsed.Last + "\" are unregistered names. " 
 										+ FindSomeSuggestions(parsed.First, parsed.Last);
 					}
-					else if (sFirst) {
+					else if (!sFirst) {
 						//first is bad
 						markedLines[i] = "Error: \"" + parsed.First + "\" is not a registered first name. " 
 							+ FindSomeSuggestions(parsed.First);
 					}
 					else {
 						//last is bad
-						markedLines[i] = "Error: \"" + parsed.Last + "\" is not a registered first name. "
+						markedLines[i] = "Error: \"" + parsed.Last + "\" is not a registered last name. "
 							+ FindSomeSuggestions(parsed.Last);
 					}
 				}

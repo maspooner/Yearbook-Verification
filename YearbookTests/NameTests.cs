@@ -51,6 +51,11 @@ namespace YearbookTests {
 				Name.Parse("  ana   st.  pierre-quanto    "));
 		}
 		[TestMethod]
+		public void Parse_ThreeWordNameTwoLastNamesHasSuffix() {
+			AssertSameName(new Name("Ana", "Pierre-Quanto Jr."),
+				Name.Parse("  ana     pierre-quanto   jr. "));
+		}
+		[TestMethod]
 		public void Parse_FourWordNameNoSpecial() {
 			AssertSameName(new Name("Ana Maria", "St. Pierre"), 
 				Name.Parse("  ana  maria  st.  pierre    "));

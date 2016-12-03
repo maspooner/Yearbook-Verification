@@ -58,7 +58,8 @@ namespace YearbookVerify {
 			else if(parts.Length == 3) {
 				//ambiguous first/last name pairing for second part
 				//Contains a .? Probably a last name matching
-				if(parts[1].IndexOf('.') != -1) {
+				//if last word is a suffix, (Jr. etc) this is handled as well
+				if(parts[1].IndexOf('.') != -1 || parts[2].IndexOf('.') != -1) {
 					fir = parts[0];
 					las = parts[1] + " " + parts[2];
 				}
